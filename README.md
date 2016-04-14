@@ -24,3 +24,23 @@ echo ${$(docker port $d 80)#*:}
 ```
 
 For more info on variable transformation see [here](http://stackoverflow.com/a/15548660/1776889)
+
+## Docker House-keeping
+
+How to remove containers with exited status:
+
+```
+docker rm -v $(docker ps -a -q -f status=exited)
+```
+
+How to remove old containers:
+
+```
+docker ps -a | grep 'weeks ago' | awk '{print $1}' | xargs docker rm
+```
+
+How to remove container images in dangling state:
+
+```
+docker rmi $(docker images -f "dangling=true" -q)
+```
