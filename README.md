@@ -42,5 +42,5 @@ docker ps -a | grep 'weeks ago' | awk '{print $1}' | xargs docker rm
 How to remove container images in dangling state:
 
 ```
-docker rmi $(docker images -f "dangling=true" -q)
+docker images -f "dangling=true" -q | xargs docker rmi
 ```
